@@ -7,12 +7,18 @@ import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 import { useAuthUser, useSignOut } from "react-auth-kit";
 import UserModal from "./UserModal";
+import SureModal from "./SureModal";
 
 const Navbar = () => {
   const signOut = useSignOut();
   const user = useAuthUser();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [sureOpen, setSureOpen] = useState(false);
+  const logOut = () => {
+    signOut();
+    navigate("/login");
+  };
   const items = [
     {
       label: (
@@ -25,11 +31,7 @@ const Navbar = () => {
     },
     {
       label: (
-        <Wrapper.MenuItem
-          onClick={() => {
-            signOut();
-            navigate("/login");
-          }}>
+        <Wrapper.MenuItem onClick={() => setSureOpen(true)}>
           <TbLogout style={{ color: "red" }} />
           <Wrapper.MenuItemText isLogout={true}>Logout</Wrapper.MenuItemText>
         </Wrapper.MenuItem>
@@ -41,8 +43,13 @@ const Navbar = () => {
     <div>
       <Wrapper>
         <UserModal open={open} onCancel={() => setOpen(false)} />
+        <SureModal
+          open={sureOpen}
+          onOk={() => logOut()}
+          onCancel={() => setSureOpen(false)}
+        />
         <Wrapper.Container>
-          <Wrapper.Logo src={logoMain} />
+          <Wrapper.Logo src={logoMain} onClick={() => navigate("/")} />
           <Dropdown menu={{ items }} trigger={["click"]}>
             <Avatar
               style={{

@@ -4,15 +4,15 @@ import Calendar from "../../Generic/Calendar";
 import { Title } from "../../Generic/Styles";
 import { Wrapper } from "./style";
 
-const Attandance = () => {
+const Count_Work = () => {
   const { flowDate } = useParams();
   const date = new Date(Number(flowDate));
   return (
     <Wrapper>
-      <Title>Attandance</Title>
+      <Title>Count_Work</Title>
       <Calendar date={date} />
     </Wrapper>
   );
 };
 
-export default Attandance;
+export default Count_Work;
