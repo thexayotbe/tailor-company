@@ -21,8 +21,8 @@ Wrapper.LeftContainer = styled.div`
 Wrapper.LeftContainer.Background = styled.div`
   z-index: 2;
   background-image: url(${tailorman});
-  width: 500px;
-  height: 500px;
+  width: 70%;
+  height: 70%;
   background-size: cover;
   background-position: center center;
   border-radius: 12px;
@@ -90,10 +90,31 @@ Wrapper.LoginBtn = styled.button`
   height: 50px;
   border: 1px solid rgb(240, 238, 247);
   border-radius: 12px;
-
   cursor: pointer;
   font-size: 16px;
   color: rgb(255, 255, 255);
   padding: 0px 15px;
   background: rgb(48, 104, 204);
+  ${({ warningAnimation }) =>
+    warningAnimation &&
+    `
+    animation: rotate 0.7s ease-in-out both;
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+    25% {
+      transform: rotate(3deg) translate3d(0, 0, 0);
+    }
+    50% {
+      transform: rotate(-3deg) translate3d(0, 0, 0);
+    }
+    75% {
+      transform: rotate(1deg) translate3d(0, 0, 0);
+    }
+    100% {
+      transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+  }
+  `}
 `;

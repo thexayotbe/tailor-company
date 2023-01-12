@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Wrapper } from "./style";
 import logoMain from "../../assets/images/logoMain.jpg";
 import { Avatar, Dropdown } from "antd";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
+import { useAuthUser, useSignOut } from "react-auth-kit";
+import UserModal from "./UserModal";
+
 const Navbar = () => {
+  const signOut = useSignOut();
+  const user = useAuthUser();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const items = [
     {
       label: (
-        <Wrapper.MenuItem>
+        <Wrapper.MenuItem onClick={() => setOpen(true)}>
           <IoMdSettings />
           <Wrapper.MenuItemText>Settings</Wrapper.MenuItemText>
         </Wrapper.MenuItem>
@@ -21,7 +27,7 @@ const Navbar = () => {
       label: (
         <Wrapper.MenuItem
           onClick={() => {
-            localStorage.clear();
+            signOut();
             navigate("/login");
           }}>
           <TbLogout style={{ color: "red" }} />
@@ -34,6 +40,7 @@ const Navbar = () => {
   return (
     <div>
       <Wrapper>
+        <UserModal open={open} onCancel={() => setOpen(false)} />
         <Wrapper.Container>
           <Wrapper.Logo src={logoMain} />
           <Dropdown menu={{ items }} trigger={["click"]}>
@@ -44,7 +51,7 @@ const Navbar = () => {
                 cursor: "pointer",
               }}
               size="large">
-              X
+              {user().fullName[0]}
             </Avatar>
           </Dropdown>
         </Wrapper.Container>

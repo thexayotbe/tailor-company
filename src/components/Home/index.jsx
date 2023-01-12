@@ -1,59 +1,38 @@
 import React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import Card from "../Generic/Card";
 import { Wrapper } from "./style";
-
+import { flowData } from "../../utils/flowData";
+import { Title } from "../Generic/Styles";
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <Wrapper>
-      <Wrapper.Title>Flows</Wrapper.Title>
+      <Title>Flows</Title>
       <Wrapper.CardContainer>
-        <Card
-          title={"Flow 1"}
-          img={
-            "https://st2.depositphotos.com/1007989/5894/i/950/depositphotos_58949951-stock-photo-girl-making-a-dress.jpg"
-          }
-        />
-        <Card
-          title={"Flow 2"}
-          img={
-            "https://st2.depositphotos.com/1007989/5894/i/950/depositphotos_58949951-stock-photo-girl-making-a-dress.jpg"
-          }
-        />
+        {flowData.map((value) => {
+          return (
+            <Card
+              key={value.id}
+              title={value.title}
+              img={value.img}
+              onClick={() => navigate(`${value.navigation}`)}
+            />
+          );
+        })}
       </Wrapper.CardContainer>
-      <Wrapper.CardContainer>
-        <Card
-          title={"Flow 3"}
-          img={
-            "https://st2.depositphotos.com/1007989/5894/i/950/depositphotos_58949951-stock-photo-girl-making-a-dress.jpg"
-          }
-        />
-        <Card
-          title={"Flow 4"}
-          img={
-            "https://st2.depositphotos.com/1007989/5894/i/950/depositphotos_58949951-stock-photo-girl-making-a-dress.jpg"
-          }
-        />
-      </Wrapper.CardContainer>
-      <Wrapper.CardContainer>
-        <Card
-          title={"Flow 5"}
-          img={
-            "https://st2.depositphotos.com/1007989/5894/i/950/depositphotos_58949951-stock-photo-girl-making-a-dress.jpg"
-          }
-        />
-      </Wrapper.CardContainer>
-      <Wrapper.Title>Store and report</Wrapper.Title>
+      <Title>Store and report</Title>
       <Wrapper.CardContainer>
         <Card
           title={"Store"}
           img={
-            "https://previews.123rf.com/images/grgroup/grgroup1310/grgroup131000166/22769908-store-design-over-white-background-vector-illustration.jpg"
+            "https://img.freepik.com/premium-vector/shop-building-flat-decorative-icons-isolated-vector-illustration_44074-6050.jpg?w=826"
           }
         />
         <Card
           title={"Report"}
           img={
-            "https://thumbs.dreamstime.com/b/report-icon-vector-isolated-white-background-sign-l-transparent-line-linear-symbol-design-outline-style-133757735.jpg"
+            "https://img.freepik.com/free-vector/clipboard-with-statistics-report-document-paper_3446-311.jpg?w=740&t=st=1673243548~exp=1673244148~hmac=7595dab024cd4384ecec4aa0b57c1aa3f803ff6019801b4db0bf22bb72f2b02c"
           }
         />
       </Wrapper.CardContainer>

@@ -5,17 +5,10 @@ export const Wrapper = styled.div`
   height: 100%;
 `;
 
-Wrapper.Title = styled.div`
-  font-style: normal;
-  font-weight: 500;
-  font-size: 34px;
-  line-height: 77px;
-  color: rgb(0);
-  margin: 40px;
-  text-align: center;
-`;
 Wrapper.CardContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
   align-items: center;
   justify-content: space-evenly;
   width: 40%;
@@ -24,6 +17,11 @@ Wrapper.CardContainer = styled.div`
     width: 60%;
   }
   @media (max-width: 900px) {
+    width: 60%;
+    gap: 60px;
+  }
+  @media (max-width: 700px) {
     width: 100%;
+    gap: 10px;
   }
 `;

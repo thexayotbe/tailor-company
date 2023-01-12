@@ -4,7 +4,10 @@ import Navbar from "../components/Navbar";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Home from "../pages/Home";
 import Contact from "../pages/Contact";
-import { redirectPath } from "../utils/redirectPath";
+import { RequireAuth } from "react-auth-kit";
+import NotFound from "../components/404";
+import Flow from "../components/FlowByParams";
+import FlowSection from "../components/FlowSections";
 const Root = () => {
   const [currentLocation, setCurrentLocation] = useState("");
   const isAuthed = Boolean(localStorage.getItem(`isAuthed`));
@@ -16,21 +19,23 @@ const Root = () => {
 
   return (
     <Routes>
-      {isAuthed ? (
-        <Route path="/" element={<Navbar />}>
-          <Route index element={<Home />}></Route>
-          <Route path="/contact" element={<Contact />}></Route>
-        </Route>
-      ) : (
-        <>
-          {redirectPath.includes(currentLocation) ? (
-            <Route path={currentLocation} element={<Navigate to="/login" />} />
-          ) : (
-            ""
-          )}
-        </>
-      )}
-      <Route path="/login" element={<Login />}></Route>
+      <Route
+        path="/"
+        element={
+          <RequireAuth loginPath="/login">
+            <Navbar />
+          </RequireAuth>
+        }>
+        <Route index element={<Home />} />
+        <Route path={"/flow/:flowID"} element={<Flow />} />
+        <Route
+          path={"/flow/:flowID/:flowSection/:flowDate"}
+          element={<FlowSection />}
+        />
+      </Route>
+
+      <Route path="/login" element={<Login />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

@@ -6,13 +6,19 @@ export const Wrapper = styled.div`
   width: fit-content;
   height: fit-content;
   display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 17px;
   flex-direction: column;
   box-shadow: rgb(0 0 0 / 25%) 6px 6px 7px;
-  padding: 10px 50px;
+  padding: ${({ isFlow }) => (isFlow ? "10px 80px" : "10px 30px")};
   gap: 20px;
+  @media (max-width: 1000px) {
+    padding: ${({ isFlow }) => (isFlow ? "10px 60px" : "10px 30px")};
+  }
   @media (max-width: 900px) {
     padding: 10px 20px;
+    width: ${({ isFlow }) => (isFlow ? "100%" : "fit-content")};
   }
 `;
 

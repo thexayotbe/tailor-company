@@ -6,12 +6,13 @@ import { notification } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import ShapeSvg from "../Generic/ShapeSVG";
 import axios from "axios";
-import e from "cors";
 import { useNavigate } from "react-router-dom";
-
+import { useSignIn } from "react-auth-kit";
 const Login = () => {
+  const signIn = useSignIn();
   const [loginData, setLoginData] = useState({ fullName: "", password: "" });
   const [loadingStatus, setLoadingStatus] = useState(false);
+  const [playingAnimaton, setPlayingAnimaton] = useState(false);
   const navigate = useNavigate();
   const openNotification = (
     type,
@@ -26,13 +27,25 @@ const Login = () => {
       placement,
     });
   };
+  const warningAnimationHandler = () => {
+    setPlayingAnimaton(true);
+    setTimeout(() => {
+      setPlayingAnimaton(false);
+    }, 1000);
+  };
   const onChange = (e) =>
     setLoginData({
       ...loginData,
       [e.target.name]: e.target.value,
     });
+  const keyHandler = (e) => {
+    if (e.key === "Enter" || e.type === "click") {
+      authUser();
+    }
+  };
   const authUser = () => {
     if (!loginData.password || !loginData.fullName) {
+      warningAnimationHandler();
       openNotification(
         "error",
         "Name or password is wrong",
@@ -49,12 +62,17 @@ const Login = () => {
       .then((responseData) => {
         setLoadingStatus(false);
         const { data } = responseData.data;
-        localStorage.setItem(`token`, data.token);
-        localStorage.setItem(`isAuthed`, true);
+        signIn({
+          token: data.token,
+          tokenType: "Bearer",
+          authState: { fullName: data.user.fullName, _id: data.user._id },
+          expiresIn: 3600,
+        });
         navigate("/ ");
         openNotification("success", "You logged in successfully");
       })
       .catch((error) => {
+        warningAnimationHandler();
         openNotification(
           "error",
           error.response.data.message.toUpperCase(),
@@ -100,8 +118,11 @@ const Login = () => {
               name="password"
               onChange={(e) => onChange(e)}
               value={loginData.password}
+              onKeyDown={(e) => keyHandler(e)}
             />
-            <Wrapper.LoginBtn onClick={authUser}>
+            <Wrapper.LoginBtn
+              onClick={keyHandler}
+              warningAnimation={playingAnimaton}>
               {loadingStatus ? <LoadingOutlined /> : "Login"}
             </Wrapper.LoginBtn>
           </Wrapper.RightContainer.Form>
