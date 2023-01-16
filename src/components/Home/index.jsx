@@ -28,6 +28,7 @@ const Home = () => {
           img={
             "https://img.freepik.com/premium-vector/shop-building-flat-decorative-icons-isolated-vector-illustration_44074-6050.jpg?w=826"
           }
+          onClick={() => navigate("/store")}
         />
         <Card
           title={"Report"}

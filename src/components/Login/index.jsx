@@ -62,6 +62,7 @@ const Login = () => {
       .then((responseData) => {
         setLoadingStatus(false);
         const { data } = responseData.data;
+        localStorage.setItem("token", data.token);
         signIn({
           token: data.token,
           tokenType: "Bearer",

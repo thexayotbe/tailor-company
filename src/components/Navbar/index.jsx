@@ -3,12 +3,10 @@ import { Wrapper } from "./style";
 import logoMain from "../../assets/images/logoMain.jpg";
 import { Avatar, Dropdown } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
-import { IoMdSettings } from "react-icons/io";
-import { TbLogout } from "react-icons/tb";
 import { useAuthUser, useSignOut } from "react-auth-kit";
 import UserModal from "./UserModal";
 import SureModal from "./SureModal";
-
+import { SettingOutlined, LogoutOutlined } from "@ant-design/icons";
 const Navbar = () => {
   const signOut = useSignOut();
   const user = useAuthUser();
@@ -23,7 +21,7 @@ const Navbar = () => {
     {
       label: (
         <Wrapper.MenuItem onClick={() => setOpen(true)}>
-          <IoMdSettings />
+          <SettingOutlined />
           <Wrapper.MenuItemText>Settings</Wrapper.MenuItemText>
         </Wrapper.MenuItem>
       ),
@@ -32,7 +30,7 @@ const Navbar = () => {
     {
       label: (
         <Wrapper.MenuItem onClick={() => setSureOpen(true)}>
-          <TbLogout style={{ color: "red" }} />
+          <LogoutOutlined style={{ color: "red" }} />
           <Wrapper.MenuItemText isLogout={true}>Logout</Wrapper.MenuItemText>
         </Wrapper.MenuItem>
       ),
