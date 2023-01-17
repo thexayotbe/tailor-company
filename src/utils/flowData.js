@@ -1,8 +1,8 @@
-import flow1Img from "../assets/images/flow1.jpg";
-import flow2Img from "../assets/images/flow2.webp";
-import flow3Img from "../assets/images/flow3.webp";
-import flow4Img from "../assets/images/flow4.webp";
-import flow5Img from "../assets/images/flow5.webp";
+import flow1Img from "../assets/icons/flow1.svg";
+import flow2Img from "../assets/icons/flow2.svg";
+import flow3Img from "../assets/icons/flow3.svg";
+import flow4Img from "../assets/icons/flow4.svg";
+import flow5Img from "../assets/icons/flow5.svg";
 export const flowData = [
   {
     id: 1,

@@ -4,6 +4,8 @@ import Card from "../Generic/Card";
 import { Wrapper } from "./style";
 import { flowData } from "../../utils/flowData";
 import { Title } from "../Generic/Styles";
+import store from "../../assets/images/store.png";
+import report from "../../assets/images/report.png";
 const Home = () => {
   const navigate = useNavigate();
   return (
@@ -23,19 +25,8 @@ const Home = () => {
       </Wrapper.CardContainer>
       <Title>Store and report</Title>
       <Wrapper.CardContainer>
-        <Card
-          title={"Store"}
-          img={
-            "https://img.freepik.com/premium-vector/shop-building-flat-decorative-icons-isolated-vector-illustration_44074-6050.jpg?w=826"
-          }
-          onClick={() => navigate("/store")}
-        />
-        <Card
-          title={"Report"}
-          img={
-            "https://img.freepik.com/free-vector/clipboard-with-statistics-report-document-paper_3446-311.jpg?w=740&t=st=1673243548~exp=1673244148~hmac=7595dab024cd4384ecec4aa0b57c1aa3f803ff6019801b4db0bf22bb72f2b02c"
-          }
-        />
+        <Card title={"Store"} img={store} onClick={() => navigate("/store")} />
+        <Card title={"Report"} img={report} />
       </Wrapper.CardContainer>
     </Wrapper>
   );
