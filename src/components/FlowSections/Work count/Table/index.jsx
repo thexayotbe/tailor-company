@@ -1,37 +1,43 @@
 import { Button, Checkbox } from "antd";
 import React, { useState } from "react";
-import { Wrapper } from "./style";
 import { OrderedListOutlined } from "@ant-design/icons";
-
+import { TableContainer } from "../../../Generic/Styles/tableStyle";
 const Table = ({ data }) => {
   return (
-    <Wrapper>
-      <Wrapper.Table>
-        <Wrapper.Thead>
-          <Wrapper.Tr>
-            <Wrapper.Th>
+    <TableContainer>
+      <TableContainer.Table>
+        <TableContainer.Thead>
+          <TableContainer.Tr>
+            <TableContainer.Th>
               <OrderedListOutlined />
-            </Wrapper.Th>
+            </TableContainer.Th>
 
-            <Wrapper.Th>Full Name</Wrapper.Th>
-            <Wrapper.Th isAvailable>Defect</Wrapper.Th>
-            <Wrapper.Th isEnd>Total</Wrapper.Th>
-          </Wrapper.Tr>
-        </Wrapper.Thead>
-        <Wrapper.Tbody>
+            <TableContainer.Th>Full Name</TableContainer.Th>
+            <TableContainer.Th defect={true}>Defect</TableContainer.Th>
+            <TableContainer.Th isEnd>Total</TableContainer.Th>
+          </TableContainer.Tr>
+        </TableContainer.Thead>
+        <TableContainer.Tbody>
           {data?.map((value, index) => {
             return (
-              <Wrapper.Tr isAvailable key={value.id}>
-                <Wrapper.Td>{index + 1}</Wrapper.Td>
-                <Wrapper.Td>{value.fullName}</Wrapper.Td>
-                <Wrapper.Td isAvailable>{value.defect}</Wrapper.Td>
-                <Wrapper.Td>{value.total}</Wrapper.Td>
-              </Wrapper.Tr>
+              <TableContainer.Tr key={value.id}>
+                <TableContainer.Td defect={true}>{index + 1}</TableContainer.Td>
+                <TableContainer.Td defect={true}>
+                  {value.fullName}
+                </TableContainer.Td>
+                <TableContainer.Td isAvailable defect={true}>
+                  {value.defect}
+                </TableContainer.Td>
+                <TableContainer.Td defect={true}>
+                  {" "}
+                  {value.total}{" "}
+                </TableContainer.Td>
+              </TableContainer.Tr>
             );
           })}
-        </Wrapper.Tbody>
-      </Wrapper.Table>
-    </Wrapper>
+        </TableContainer.Tbody>
+      </TableContainer.Table>
+    </TableContainer>
   );
 };
 

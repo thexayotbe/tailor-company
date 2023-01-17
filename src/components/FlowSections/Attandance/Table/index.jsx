@@ -1,41 +1,41 @@
 import React from "react";
-import { Wrapper } from "./style";
 import { OrderedListOutlined } from "@ant-design/icons";
 import { Button, Checkbox } from "antd";
+import { TableContainer } from "../../../Generic/Styles/tableStyle";
 const Table = ({ data }) => {
   return (
-    <Wrapper>
-      <Wrapper.Table>
-        <Wrapper.Thead>
-          <Wrapper.Tr>
-            <Wrapper.Th>
+    <TableContainer>
+      <TableContainer.Table>
+        <TableContainer.Thead>
+          <TableContainer.Tr>
+            <TableContainer.Th>
               <OrderedListOutlined />
-            </Wrapper.Th>
-            <Wrapper.Th>
+            </TableContainer.Th>
+            <TableContainer.Th>
               <Checkbox checked={data?.isAllCome} />
-            </Wrapper.Th>
-            <Wrapper.Th>Full Name</Wrapper.Th>
-            <Wrapper.Th isEnd>Action</Wrapper.Th>
-          </Wrapper.Tr>
-        </Wrapper.Thead>
-        <Wrapper.Tbody>
+            </TableContainer.Th>
+            <TableContainer.Th>Full Name</TableContainer.Th>
+            <TableContainer.Th isEnd>Action</TableContainer.Th>
+          </TableContainer.Tr>
+        </TableContainer.Thead>
+        <TableContainer.Tbody>
           {data?.data?.map((value, index) => {
             return (
-              <Wrapper.Tr key={value._id}>
-                <Wrapper.Td>{index + 1}</Wrapper.Td>
-                <Wrapper.Td>
+              <TableContainer.Tr key={value._id}>
+                <TableContainer.Td>{index + 1}</TableContainer.Td>
+                <TableContainer.Td>
                   <Checkbox checked={value.isCome} />
-                </Wrapper.Td>
-                <Wrapper.Td>{value.fullName}</Wrapper.Td>
-                <Wrapper.Td isEnd>
+                </TableContainer.Td>
+                <TableContainer.Td>{value.fullName}</TableContainer.Td>
+                <TableContainer.Td isEnd>
                   <Button danger>Delete</Button>
-                </Wrapper.Td>
-              </Wrapper.Tr>
+                </TableContainer.Td>
+              </TableContainer.Tr>
             );
           })}
-        </Wrapper.Tbody>
-      </Wrapper.Table>
-    </Wrapper>
+        </TableContainer.Tbody>
+      </TableContainer.Table>
+    </TableContainer>
   );
 };
 

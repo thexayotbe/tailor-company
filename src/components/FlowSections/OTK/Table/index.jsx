@@ -1,39 +1,39 @@
 import { Button, Checkbox } from "antd";
 import React, { useState } from "react";
-import { Wrapper } from "./style";
+import { TableContainer } from "../../../Generic/Styles/tableStyle";
 import { OrderedListOutlined } from "@ant-design/icons";
 const Table = ({ data }) => {
   return (
-    <Wrapper>
-      <Wrapper.Table>
-        <Wrapper.Thead>
-          <Wrapper.Tr>
-            <Wrapper.Th>
+    <TableContainer>
+      <TableContainer.Table>
+        <TableContainer.Thead>
+          <TableContainer.Tr>
+            <TableContainer.Th>
               <OrderedListOutlined />
-            </Wrapper.Th>
-            <Wrapper.Th>Products</Wrapper.Th>
-            <Wrapper.Th count>Count</Wrapper.Th>
-            <Wrapper.Th defect>Defect</Wrapper.Th>
-            <Wrapper.Th isEnd>Action</Wrapper.Th>
-          </Wrapper.Tr>
-        </Wrapper.Thead>
-        <Wrapper.Tbody>
+            </TableContainer.Th>
+            <TableContainer.Th>Products</TableContainer.Th>
+            <TableContainer.Th count>Count</TableContainer.Th>
+            <TableContainer.Th defect>Defect</TableContainer.Th>
+            <TableContainer.Th isEnd>Action</TableContainer.Th>
+          </TableContainer.Tr>
+        </TableContainer.Thead>
+        <TableContainer.Tbody>
           {data.map((value, index) => {
             return (
-              <Wrapper.Tr key={value.id}>
-                <Wrapper.Td>{index + 1}</Wrapper.Td>
-                <Wrapper.Td>{value.product}</Wrapper.Td>
-                <Wrapper.Td count>{value.count}</Wrapper.Td>
-                <Wrapper.Td defect> {value.defect}</Wrapper.Td>
-                <Wrapper.Td isEnd>
+              <TableContainer.Tr key={value.id}>
+                <TableContainer.Td>{index + 1}</TableContainer.Td>
+                <TableContainer.Td>{value.product}</TableContainer.Td>
+                <TableContainer.Td count>{value.count}</TableContainer.Td>
+                <TableContainer.Td defect> {value.defect}</TableContainer.Td>
+                <TableContainer.Td isEnd>
                   <Button danger>Delete</Button>
-                </Wrapper.Td>
-              </Wrapper.Tr>
+                </TableContainer.Td>
+              </TableContainer.Tr>
             );
           })}
-        </Wrapper.Tbody>
-      </Wrapper.Table>
-    </Wrapper>
+        </TableContainer.Tbody>
+      </TableContainer.Table>
+    </TableContainer>
   );
 };
 

@@ -15,7 +15,7 @@ const Count_Work = () => {
   ]);
   return (
     <Wrapper>
-      <Title>Count_Work</Title>
+      <Title>Count Work</Title>
       <Calendar date={date} />
       <Table data={data} />
     </Wrapper>
