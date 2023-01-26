@@ -7,6 +7,7 @@ import { Title } from "../../Generic/Styles";
 import { Wrapper } from "./style";
 import Table from "./Table";
 import Modal from "./Modal";
+import TableLoading from "../../Generic/TableLoading";
 const Attandance = () => {
   const navigate = useNavigate();
   const { flowDate, flowID } = useParams();
@@ -30,30 +31,25 @@ const Attandance = () => {
       },
     }).then((res) => {
       setIsLoading(false);
-
       setData(res?.data?.data[0]);
     });
   }, [currentDate]);
   const closeModal = () => {
     setModalOpen(false);
   };
-  const addNewUser = () => {
-    axios({
-      method: "POST",
-      url: `${process.env.REACT_APP_MAIN_URL}/user/create`,
-      data: {
-        fullName: `$`,
-        flowType: `${flowID}`,
-      },
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    }).then((res) => {});
+
+  const addHandler = (propData) => {
+    setData({ ...data, data: { ...data.data, propData } });
   };
+
   return (
     <Wrapper>
       <Title>Attandance</Title>
-      <Modal open={modalOpen} closeModalHandler={closeModal} />
+      <Modal
+        open={modalOpen}
+        closeModalHandler={closeModal}
+        onAdd={addHandler}
+      />
       <Calendar date={date} onDayChange={dayChangeHandler} />
       <Button
         style={{ margin: "35px 0" }}
@@ -62,7 +58,7 @@ const Attandance = () => {
         + Add Worker
       </Button>
       {isLoading ? (
-        "Loading"
+        <TableLoading count={10} />
       ) : (
         <Table data={data} createDate={date} flowType={flowID} />
       )}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Card from "../Generic/Card";
 import { Wrapper } from "./style";
 import { flowData } from "../../utils/flowData";
@@ -26,7 +26,11 @@ const Home = () => {
       <Title>Store and report</Title>
       <Wrapper.CardContainer>
         <Card title={"Store"} img={store} onClick={() => navigate("/store")} />
-        <Card title={"Report"} img={report} />
+        <Card
+          title={"Report"}
+          img={report}
+          onClick={() => navigate("/report")}
+        />
       </Wrapper.CardContainer>
     </Wrapper>
   );

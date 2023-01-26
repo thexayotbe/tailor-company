@@ -1,5 +1,3 @@
-import { Button, Checkbox } from "antd";
-import React, { useState } from "react";
 import { OrderedListOutlined } from "@ant-design/icons";
 import { TableContainer } from "../../../Generic/Styles/tableStyle";
 const Table = ({ data }) => {
@@ -13,24 +11,26 @@ const Table = ({ data }) => {
             </TableContainer.Th>
 
             <TableContainer.Th>Full Name</TableContainer.Th>
-            <TableContainer.Th defect={true}>Defect</TableContainer.Th>
+            <TableContainer.Th defect={true}>Fake</TableContainer.Th>
             <TableContainer.Th isEnd>Total</TableContainer.Th>
           </TableContainer.Tr>
         </TableContainer.Thead>
         <TableContainer.Tbody>
-          {data?.map((value, index) => {
+          {data?.data?.map((value, index) => {
             return (
-              <TableContainer.Tr key={value.id}>
-                <TableContainer.Td defect={true}>{index + 1}</TableContainer.Td>
-                <TableContainer.Td defect={true}>
+              <TableContainer.Tr key={value._id}>
+                <TableContainer.Td defect={!value.isCome}>
+                  {index + 1}
+                </TableContainer.Td>
+                <TableContainer.Td defect={!value.isCome}>
                   {value.fullName}
                 </TableContainer.Td>
                 <TableContainer.Td isAvailable defect={true}>
-                  {value.defect}
+                  {value.fake}
                 </TableContainer.Td>
-                <TableContainer.Td defect={true}>
+                <TableContainer.Td defect={!value.isCome}>
                   {" "}
-                  {value.total}{" "}
+                  {value.price}{" "}
                 </TableContainer.Td>
               </TableContainer.Tr>
             );

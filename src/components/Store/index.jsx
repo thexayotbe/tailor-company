@@ -1,22 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Wrapper } from "./style";
 import { Title } from "../Generic/Styles";
 import Table from "./Table";
 import { Button } from "antd";
-const Store = () => {
-  const [data, setData] = useState([
-    { id: 0, product: "Kastyum", count: 145, sent: 0 },
-    { id: 1, product: "Kambinezon", count: 205, sent: 0 },
-    { id: 2, product: "Kurtka", count: 100, sent: 0 },
-  ]);
+import axios from "axios";
+import TableLoading from "../Generic/TableLoading";
+const Store = ({ disabledFunction }) => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    setIsLoading(true);
+    axios({
+      url: `${process.env.REACT_APP_MAIN_URL}/store`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then((res) => {
+      setIsLoading(false);
+
+      setData(res?.data?.data);
+    });
+  }, []);
   return (
     <Wrapper>
       <Title>Store</Title>
-      <Table data={data} />
-
-      <Button type="primary" style={{ margin: "30px 0" }}>
-        + Add Product{" "}
-      </Button>
+      {isLoading ? (
+        <TableLoading count={10} />
+      ) : (
+        <Table data={data} disabledFunction={disabledFunction} />
+      )}
+      {!disabledFunction && (
+        <Button type="primary" style={{ margin: "30px 0" }}>
+          + Add Product{" "}
+        </Button>
+      )}
     </Wrapper>
   );
 };

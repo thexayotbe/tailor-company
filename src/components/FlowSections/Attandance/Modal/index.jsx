@@ -4,7 +4,7 @@ import { Modal } from "antd";
 import axios from "axios";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-const ModalAddUser = ({ open, closeModalHandler }) => {
+const ModalAddUser = ({ open, closeModalHandler, onAdd }) => {
   const { flowID } = useParams();
   const [userInfo, setUserInfo] = useState({
     name: "",
@@ -22,7 +22,7 @@ const ModalAddUser = ({ open, closeModalHandler }) => {
         Authorization: `Bearer ${localStorage.getItem(`token`)}`,
       },
     });
-    console.log(data);
+    onAdd(data);
     closeModalHandler();
   };
 
