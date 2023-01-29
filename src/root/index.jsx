@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import Login from "../components/Login";
 import Navbar from "../components/Navbar";
 import NotFound from "../components/404";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { RequireAuth } from "react-auth-kit";
 import { navigationData } from "../utils/navigationData";
 const Root = () => {
   const [currentLocation, setCurrentLocation] = useState("");
-  const isAuthed = Boolean(localStorage.getItem(`isAuthed`));
   const location = useLocation();
 
   useEffect(() => {

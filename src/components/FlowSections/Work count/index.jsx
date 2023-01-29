@@ -41,7 +41,11 @@ const Count_Work = () => {
     <Wrapper>
       <Title>Count Work</Title>
       <Calendar date={date} onDayChange={dayChangeHandler} />
-      {isLoading ? <TableLoading count={10} /> : <Table data={data} />}
+      {isLoading ? (
+        <TableLoading count={10} />
+      ) : (
+        <Table data={data} currentDate={currentDate} />
+      )}
       <Button
         style={{ margin: "35px" }}
         onClick={() => navigate(`/flow/${flowID}/attandance/${flowDate}`)}>
