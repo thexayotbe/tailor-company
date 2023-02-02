@@ -48,11 +48,26 @@ const Table = ({ data: propData, flowType, createDate }) => {
 
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_MAIN_URL}/merchants/update`,
+      url: `${process.env.REACT_APP_MAIN_URL}/merchants/update_all_come`,
       data: {
         flowType,
         createDate: createDate.getTime(),
         isAllCome: isAllCome,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  };
+  const onDelete = ({ _id }) => {
+    setData({ ...data, data: data.data.filter((value) => value._id !== _id) });
+    axios({
+      url: `${process.env.REACT_APP_MAIN_URL}/merchants/delete_user`,
+      method: "POST",
+      data: {
+        createDate: createDate.getTime(),
+        flowType: flowType,
+        idUsers: [_id],
       },
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -94,7 +109,9 @@ const Table = ({ data: propData, flowType, createDate }) => {
                 </TableContainer.Td>
                 <TableContainer.Td>{value.fullName}</TableContainer.Td>
                 <TableContainer.Td isEnd>
-                  <Button danger>Delete</Button>
+                  <Button danger onClick={() => onDelete(value)}>
+                    Delete
+                  </Button>
                 </TableContainer.Td>
               </TableContainer.Tr>
             );

@@ -10,6 +10,7 @@ const Table = ({ data, currentDate }) => {
   const { selectedData } = useSelector((state) => state.countWork);
   const [selectType, setSelectType] = useState("");
   const doubleCLickHandler = (value, doubleType) => {
+    if (selectType === doubleType || !value.isCome) return;
     dispatch(setCountWorkSelectedData(value));
     setSelectType(doubleType);
   };

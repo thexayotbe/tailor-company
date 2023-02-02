@@ -7,7 +7,6 @@ const Calendar = ({ date, onDayChange }) => {
   const startDate = process.env.REACT_APP_START_DATE;
   const setUpDate = new Date();
   const [paramsDate, setParamsDate] = useState(date.getTime());
-  const [showDatePicker, setShowDatePicker] = useState(false);
   const [showDate, setShowDate] = useState(true);
   const visibleDate = new Date(
     `${setUpDate.getMonth() + 1}/${
@@ -77,7 +76,7 @@ const Calendar = ({ date, onDayChange }) => {
         `${setUpDate.getDate()}.${
           setUpDate.getMonth() + 1
         }${setUpDate.getFullYear()}`
-      ) >
+      ) <
       Number(
         `${currentDate.getDate()}.${
           currentDate.getMonth() + 1
