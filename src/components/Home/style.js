@@ -20,6 +20,10 @@ Wrapper.CardContainer = styled.div`
     width: 60%;
     gap: 60px;
   }
+  @media (max-width: 550px) {
+    width: 100%;
+    gap: 100px;
+  }
   @media (max-width: 700px) {
     width: 100%;
     gap: 10px;

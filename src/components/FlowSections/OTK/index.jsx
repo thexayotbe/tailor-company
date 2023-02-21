@@ -91,6 +91,7 @@ const OTK = () => {
         />
       )}
       <AddModal
+        isLoading={isLoading}
         open={addModalOpen}
         onOpen={() => setAddModalOpen(true)}
         onCancel={() => setAddModalOpen(false)}

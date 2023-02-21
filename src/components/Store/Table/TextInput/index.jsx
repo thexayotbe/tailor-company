@@ -3,49 +3,40 @@ import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { setOTKSelectedData } from "../../../../../redux/otkSlice";
+import { setStoreSelectedData } from "../../../../redux/storeSlice";
 import { Wrapper } from "./style";
 
-const TextInput = ({
-  currentDate,
-  _id,
-  updateHandler,
-  cancelHandler,
-  oldValue,
-}) => {
+const TextInput = ({ saveHandler, cancelHandler, oldValue }) => {
   const { flowID } = useParams();
   const dispatch = useDispatch();
-  const { selectedData } = useSelector((state) => state.otk);
-  const checkAndAdd = () => {
-    oldValue.productName === selectedData.productName
-      ? cancelHandler()
-      : onSave();
-  };
+  const { selectedData } = useSelector((state) => state.store);
+
   const changeHandler = (data) => {
-    dispatch(setOTKSelectedData(data));
+    dispatch(setStoreSelectedData(data));
   };
   const onChange = (e) => {
     changeHandler({ ...selectedData, productName: e.target.value });
   };
 
   const onSave = () => {
-    updateHandler();
+    saveHandler();
     cancelHandler();
     axios({
-      url: `${process.env.REACT_APP_MAIN_URL}/otk/update`,
+      url: `${process.env.REACT_APP_MAIN_URL}/store/update`,
       method: "POST",
       data: {
-        createDate: currentDate,
-        flowType: flowID,
-        shoudUpdateData: selectedData,
-        _id,
+        ...selectedData,
       },
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
   };
-
+  const checkAndAdd = () => {
+    oldValue.productName === selectedData.productName
+      ? cancelHandler()
+      : onSave();
+  };
   return (
     <Wrapper>
       <Input

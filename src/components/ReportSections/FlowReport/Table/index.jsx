@@ -11,22 +11,27 @@ import {
   Legend,
 } from "recharts";
 import { Wrapper } from "../style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Title } from "../../../Generic/Styles";
 import { useNavigate } from "react-router-dom";
-const exampleData = [
-  {
-    name: "Fake",
-    statistics: 0,
-  },
-  {
-    name: "Things",
-    statistics: 0,
-  },
-];
+
 const Table = ({ data, date }) => {
-  const [showBar, setShowBar] = useState({ show: false, active: null });
   const navigate = useNavigate();
+  const [showBar, setShowBar] = useState({ show: false, active: null });
+  const [barData, setBarData] = useState([]);
+
+  useEffect(() => {
+    const selectedData = data[showBar.active]?.data;
+    if (selectedData) {
+      const keys = Object.keys(selectedData);
+      setBarData(
+        keys?.map((value) => ({
+          name: value,
+          statistics: selectedData[value],
+        }))
+      );
+    }
+  }, [showBar.active]);
   return (
     <Wrapper>
       <TableContainer>
@@ -45,7 +50,7 @@ const Table = ({ data, date }) => {
           <TableContainer.Tbody>
             {data?.map((value, index) => {
               return (
-                <TableContainer.Tr key={value._id}>
+                <TableContainer.Tr key={index}>
                   <TableContainer.Td>{index + 1}</TableContainer.Td>
                   <TableContainer.Td>{value.name}</TableContainer.Td>
                   <TableContainer.Td count>{value.data.fake}</TableContainer.Td>
@@ -85,7 +90,7 @@ const Table = ({ data, date }) => {
           <BarChart
             width={350}
             height={300}
-            data={exampleData}
+            data={barData}
             margin={{
               top: 5,
               right: 30,

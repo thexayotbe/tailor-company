@@ -1,6 +1,7 @@
 import { Button, Input } from "antd";
 import axios from "axios";
 import React from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setOTKSelectedData } from "../../../../../redux/otkSlice";
@@ -12,12 +13,11 @@ const NumberInput = ({
   currentDate,
   updateHandler,
   cancelHandler,
+  oldValue,
 }) => {
   const { flowID } = useParams();
-
   const dispatch = useDispatch();
   const { selectedData } = useSelector((state) => state.otk);
-
   const changeHandler = (data) => {
     dispatch(setOTKSelectedData(data));
   };
@@ -29,7 +29,7 @@ const NumberInput = ({
         [type]: +selectedData[type] + 1,
       });
     else if (selectedData[type] > 0)
-      cancelHandler({
+      changeHandler({
         ...selectedData,
         [type]: +selectedData[type] - 1,
       });
@@ -57,6 +57,9 @@ const NumberInput = ({
     });
   };
 
+  const checkAndAdd = () => {
+    oldValue[type] === selectedData[type] ? cancelHandler() : onSave();
+  };
   return (
     <Wrapper>
       <Wrapper.ButtonContainer isInput={true}>
@@ -67,7 +70,14 @@ const NumberInput = ({
           onClick={() => changeByBtn("dic")}>
           -
         </Button>
-        <Input value={selectedData[type]} type="number" onChange={onChange} />
+        <Input
+          value={selectedData[type]}
+          type="number"
+          onChange={onChange}
+          onKeyDown={(e) =>
+            (e.key === "Enter" || e.key === 13) && checkAndAdd()
+          }
+        />
         <Button
           type="default"
           style={{ width: "40px" }}
@@ -76,7 +86,7 @@ const NumberInput = ({
         </Button>
       </Wrapper.ButtonContainer>
       <Wrapper.ButtonContainer>
-        <Button type="primary" onClick={onSave}>
+        <Button type="primary" onClick={checkAndAdd}>
           Save
         </Button>
         <Button type="primary" danger onClick={cancelHandler}>

@@ -5,7 +5,6 @@ import { setOTKSelectedData } from "../../../../redux/otkSlice";
 import { useDispatch, useSelector } from "react-redux";
 import NumberInput from "./NumberInput";
 import TextInput from "./TextInput";
-import { useParams } from "react-router-dom";
 import WarningModal from "../WarnningModal";
 import { useState } from "react";
 const Table = ({
@@ -16,16 +15,16 @@ const Table = ({
   setDeleteModalOpen,
   deleteProduct,
 }) => {
-  const [stateData, setStateData] = useState(data);
   const dispatch = useDispatch();
   const { selectedData } = useSelector((state) => state.otk);
   const [deleteProductValue, setDeleteProductValue] = useState();
   const [selectType, setSelectType] = useState("");
-  const { flowID } = useParams();
+  const [oldValue, setOldValue] = useState({});
   const doubleClickHandler = (value, doubleType) => {
-    if (selectType === doubleType) return;
+    if (selectType === doubleType && value._id === selectedData._id) return;
     dispatch(setOTKSelectedData(value));
     setSelectType(doubleType);
+    setOldValue(value);
   };
 
   const deleteConfirm = (value) => {
@@ -69,6 +68,7 @@ const Table = ({
                   {value._id === selectedData._id &&
                   selectType === "productName" ? (
                     <TextInput
+                      oldValue={oldValue}
                       cancelHandler={cancelHandler}
                       updateHandler={updateData}
                       _id={data._id}
@@ -83,6 +83,7 @@ const Table = ({
                   count>
                   {selectedData._id === value._id && selectType === "things" ? (
                     <NumberInput
+                      oldValue={oldValue}
                       cancelHandler={cancelHandler}
                       type={"things"}
                       updateHandler={updateData}
@@ -98,6 +99,7 @@ const Table = ({
                   onDoubleClick={() => doubleClickHandler(value, "fake")}>
                   {selectedData._id === value._id && selectType === "fake" ? (
                     <NumberInput
+                      oldValue={oldValue}
                       cancelHandler={cancelHandler}
                       type={"fake"}
                       updateHandler={updateData}

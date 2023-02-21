@@ -24,7 +24,7 @@ const Table = ({ data, date }) => {
           <TableContainer.Tbody>
             {data?.map((value, index) => {
               return (
-                <TableContainer.Tr key={value._id}>
+                <TableContainer.Tr key={index}>
                   <TableContainer.Td>{index + 1}</TableContainer.Td>
                   <TableContainer.Td>{value.name}</TableContainer.Td>
                   <TableContainer.Td count>{value.data.fake}</TableContainer.Td>

@@ -1,18 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "./Table";
 import { Title } from "../../Generic/Styles";
+import TableLoading from "./../../Generic/TableLoading";
+import axios from "axios";
 const OTKReport = ({ date }) => {
-  const [data, setData] = useState([
-    { id: 0, name: "OTK № 1", data: { things: 0, fake: 0 } },
-    { id: 1, name: "OTK № 2", data: { things: 0, fake: 0 } },
-    { id: 2, name: "OTK № 3", data: { things: 0, fake: 0 } },
-    { id: 3, name: "OTK № 4", data: { things: 0, fake: 0 } },
-    { id: 4, name: "OTK № 5", data: { things: 0, fake: 0 } },
-  ]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    setIsLoading(true);
+    axios({
+      method: "GET",
+      url: `${process.env.REACT_APP_MAIN_URL}/otk/reports/${date}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then((res) => {
+      setIsLoading(false);
+      console.log(res.data.data);
+    });
+  }, []);
   return (
     <div>
       <Title>OTK Report</Title>
-      <Table data={data} date={date} />
+      {isLoading ? (
+        <TableLoading count={5} />
+      ) : (
+        <Table data={data} date={date} />
+      )}
     </div>
   );
 };
